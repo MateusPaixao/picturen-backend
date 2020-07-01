@@ -39,5 +39,7 @@ routes.post('/words', Dictonary.create)
 
 routes.get('/words/:username', Dictonary.list)
 
+routes.put('/words/:id', Dictonary.update)
+routes.delete('/words/:id', Dictonary.delete)
 
 module.exports = routes

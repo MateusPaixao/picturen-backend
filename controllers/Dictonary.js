@@ -8,7 +8,7 @@ module.exports = {
 
         const [id] = await connection(table).insert({
             link, word, username
-        })
+        }, 'id')
 
         return res.json({
             id,

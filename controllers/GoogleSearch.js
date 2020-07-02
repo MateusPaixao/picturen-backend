@@ -6,6 +6,10 @@ module.exports = {
         const { API_KEY: auth, SEARCH_ENGINE_ID: cx } = process.env
         const { word: q } = req.query
 
+        if (!q) {
+            return res.status(400).json({ message: 'Send a word for search working' })
+        }
+
         const response = await customSearch.cse.list({
             auth, cx, q,
             searchType: 'image',

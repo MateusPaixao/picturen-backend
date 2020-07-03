@@ -42,7 +42,7 @@ module.exports = {
 
         const [id] = await connection(table).insert({
             name,
-            username,
+            username: username ? username : email,
             email,
             password
         }, 'id')

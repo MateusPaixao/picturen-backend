@@ -12,6 +12,9 @@ const Session = require('./controllers/Session')
 routes.post('/sessions', Session.create)
 routes.delete('/sessions', Session.delete)
 
+// Create user
+routes.post('/users', User.create)
+
 routes.use(isAuth)
 
 // Images routes
@@ -25,7 +28,6 @@ routes.delete('/words/:id', Dictonary.delete)
 
 // Users routes
 
-routes.post('/users', User.create)
 routes.get('/users', User.list)
 routes.get('/users/:username', User.find)
 routes.put('/users/:id', User.update)

@@ -9,8 +9,10 @@ module.exports = {
 
         const user = await connection(table)
             .where({ email, password})
-            .select('id')
+            .select('*')
             .first()
+
+        delete user.password
 
         if (!user) {
             return response.status(400).json({ error: 'No user found with this credentials' })
@@ -20,7 +22,7 @@ module.exports = {
             expiresIn: '24h'
         })
 
-        return response.json({ auth: true, token })
+        return response.json({ ...user, auth: true, token })
     },
 
     delete: (request, response) => {

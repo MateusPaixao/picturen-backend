@@ -6,3 +6,7 @@ node_modules/
 
 credentials/
 poc.js
+
+#DB 
+
+*.sqlite3

@@ -21,7 +21,7 @@ module.exports = {
     list: async (req, res) => {
         const { username } = req.params
 
-        const words = await connection(table).select('*').where('username', username)
+        const words = await connection(table).orderBy('id', 'desc').where('username', username)
 
         return res.json({ words })
     },

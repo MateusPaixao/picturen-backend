@@ -41,11 +41,15 @@ module.exports = {
     },
 
     update: async (req, res) => {
-        const { id } = req.params
+        const { username, id } = req.params
         const { word } = req.body
 
+        if(req.username !== username){
+            return res.status(401).json({ error: true, message: 'operation not permitted' })
+        }
+
         try {
-            await connection(table)
+            const update = await connection(table)
             .where('id', id)
             .update({ word })
 

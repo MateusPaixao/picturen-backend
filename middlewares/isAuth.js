@@ -1,14 +1,15 @@
 const jwt = require('jsonwebtoken')
 
-module.exports = (request, response, next) => {
-    const token = request.headers.authorization
+module.exports = (req, res, next) => {
+    const token = req.headers.authorization
 
-    if (!token) return response.status(401).json({ auth: false, message: 'no token provided.' })
+    if (!token) return res.status(401).json({ auth: false, message: 'no token provided.' })
 
     jwt.verify(token, process.env.SECRET, (error, decoded) => {
-        if (error) return response.status(500).json({ auth: false, message: 'failed to authenticate token.' })
+        if (error) return res.status(500).json({ auth: false, message: 'failed to authenticate token.' })
 
-        request.userId = decoded.id
+        req.userId = decoded.id
+        req.username = decoded.username
         next()
     })
 }

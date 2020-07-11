@@ -34,13 +34,11 @@ module.exports = {
     },
 
     create: async (req, res) => {
-        let { name, username, email, password } = req.body
+        const { name, username, email, password } = req.body
         
         if(!validateEmail(email)){
-            return response.status(400).json({ error: 'Invalid email.' })
+            return res.status(400).json({ error: 'Invalid email.' })
         }
-
-        password = getHash(password)
 
         const userExists = await connection(table).select('*').where('email', email).limit(1)
 
@@ -52,7 +50,7 @@ module.exports = {
             name,
             username: username ? username : email,
             email,
-            password
+            password: getHash(password)
         }, 'id')
 
         return res.json({ id })
@@ -76,7 +74,7 @@ module.exports = {
 
         if(newEmail){
             if(!validateEmail(email)){
-                return response.status(400).json({ error: 'Invalid email.' })
+                return res.status(400).json({ error: 'Invalid email.' })
             }
 
             const [checkEmail] = await connection(table).select('email').where('email', email).limit(1)
@@ -92,14 +90,13 @@ module.exports = {
             .update({
                 name,
                 email,
-                password
+                password: getHash(password)
             }, 'id')
             
             return res.status(200).json({
                 id: Number(id),
                 name,
-                email,
-                password
+                email
             })
         } catch (error) {
             return res.status(500).json({ error: true, message: 'internal server error, try again latter' })

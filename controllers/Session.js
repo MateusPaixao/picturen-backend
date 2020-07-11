@@ -6,11 +6,11 @@ const { validateEmail } = require('../utils/validate')
 const table = 'users'
 
 module.exports = {
-    create: async (request, response) => {
-        let { email, password } = request.body
+    create: async (req, res) => {
+        let { email, password } = req.body
 
         if(!validateEmail(email)){
-            return response.status(400).json({ error: 'Invalid email.' })
+            return res.status(400).json({ error: 'Invalid email.' })
         }
 
         password = getHash(password)
@@ -19,9 +19,9 @@ module.exports = {
             .where({ email, password })
             .select('*')
             .first()
-
+            
         if (!user) {
-            return response.status(400).json({ error: 'Authentication fail' })
+            return res.status(400).json({ error: 'Authentication fail' })
         }
 
         delete user.password
@@ -30,10 +30,10 @@ module.exports = {
             expiresIn: '99999 years'
         })
 
-        return response.json({ ...user, auth: true, token })
+        return res.json({ ...user, auth: true, token })
     },
 
-    delete: (request, response) => {
-        return response.json({ auth: false, token: null })
+    delete: (req, res) => {
+        return res.json({ auth: false, token: null })
     }
 }

@@ -24,7 +24,7 @@ routes.get('/images', GoogleSearch.find)
 routes.post('/words', Dictonary.create)
 routes.get('/words/:username', Dictonary.list)
 routes.put('/words/:id', Dictonary.update)
-routes.delete('/words/:id', Dictonary.delete)
+routes.delete('/words/:username/:id', Dictonary.delete)
 
 // Users routes
 

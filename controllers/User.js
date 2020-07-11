@@ -1,5 +1,6 @@
 const connection = require('../database/connection')
 const getHash = require('../utils/getHash')
+const { validateEmail } = require('../utils/validate')
 
 const table = 'users'
 
@@ -34,6 +35,11 @@ module.exports = {
 
     create: async (req, res) => {
         let { name, username, email, password } = req.body
+        
+        if(!validateEmail(email)){
+            return response.status(400).json({ error: 'Invalid email.' })
+        }
+
         password = getHash(password)
 
         const userExists = await connection(table).select('*').where('email', email).limit(1)
@@ -69,6 +75,10 @@ module.exports = {
         const newEmail = userExists.email != email ? true : false
 
         if(newEmail){
+            if(!validateEmail(email)){
+                return response.status(400).json({ error: 'Invalid email.' })
+            }
+
             const [checkEmail] = await connection(table).select('email').where('email', email).limit(1)
 
             if(!!checkEmail){

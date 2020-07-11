@@ -1,12 +1,18 @@
 const connection = require('../database/connection')
 const jwt = require('jsonwebtoken')
 const getHash = require('../utils/getHash')
+const { validateEmail } = require('../utils/validate')
 
 const table = 'users'
 
 module.exports = {
     create: async (request, response) => {
         let { email, password } = request.body
+
+        if(!validateEmail(email)){
+            return response.status(400).json({ error: 'Invalid email.' })
+        }
+
         password = getHash(password)
 
         const user = await connection(table)

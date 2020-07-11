@@ -19,7 +19,7 @@ module.exports = {
         }
 
         const token = jwt.sign({ ...user }, process.env.SECRET, {
-            expiresIn: '24h'
+            expiresIn: '99999 years'
         })
 
         return response.json({ ...user, auth: true, token })

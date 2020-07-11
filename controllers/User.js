@@ -1,4 +1,5 @@
 const connection = require('../database/connection')
+const getHash = require('../utils/getHash')
 
 const table = 'users'
 
@@ -32,7 +33,8 @@ module.exports = {
     },
 
     create: async (req, res) => {
-        const { name, username, email, password } = req.body
+        let { name, username, email, password } = req.body
+        password = getHash(password)
 
         const userExists = await connection(table).select('*').where('email', email).limit(1)
 
@@ -58,6 +60,10 @@ module.exports = {
 
         if(!userExists){
             return res.status(404).json({ error: true, message: 'user not found' })
+        }
+
+        if(req.userId !== Number(id)){
+            return res.status(401).json({ error: true, message: 'operation not permitted' })
         }
 
         const newEmail = userExists.email != email ? true : false
@@ -93,10 +99,7 @@ module.exports = {
     delete: async (req, res) => {
         const { id } = req.params
 
-        // TODO:
-        // Add userId on request, with auth middleare
-        // Add in update too
-        if(req.userId !== id){
+        if(req.userId !== Number(id)){
             return res.status(401).json({ error: true, message: 'operation not permitted' })
         }
 

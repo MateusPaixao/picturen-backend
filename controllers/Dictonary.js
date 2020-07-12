@@ -27,7 +27,11 @@ module.exports = {
     },
 
     delete: async (req, res) => {
-        const { id } = req.params
+        const { username, id } = req.params
+
+        if(req.username !== username){
+            return res.status(401).json({ error: true, message: 'operation not permitted' })
+        }
 
         try {
             await connection(table)

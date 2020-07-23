@@ -21,4 +21,9 @@ A api recebe o username do usuário e lista todos as palavras associodas
 
 `app.get('/words/:username', Dictonary.list)`
 
-> Made with love <3>
+## Env for deploy
+
+> process deploy with https://medium.com/@molp/deploy-node-js-server-to-aws-lightsail-vps-fd7e67f07b14
+> generate key with https://stackoverflow.com/questions/2643502/how-to-solve-permission-denied-publickey-error-when-using-git
+> add key with https://adamdehaven.com/blog/how-to-generate-an-ssh-key-and-add-your-public-key-to-the-server-for-authentication/
+> 

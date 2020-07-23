@@ -4,7 +4,9 @@
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
-    "dev": "nodemon"
+    "dev": "nodemon",
+    "deploy": "git push -f release master",
+    "release": "git checkout master && git merge develop && git push origin master && git push -f release master"
   },
   "license": "MIT",
   "dependencies": {

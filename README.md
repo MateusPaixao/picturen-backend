@@ -20,3 +20,5 @@ A api recebe link, word, username e salva essa infos em uma tabela de dicionári
 A api recebe o username do usuário e lista todos as palavras associodas
 
 `app.get('/words/:username', Dictonary.list)`
+
+> Made with love <3>

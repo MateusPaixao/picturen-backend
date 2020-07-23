@@ -3,8 +3,8 @@
 > A simple API for integration Google Cloud Search API (Images)
 
 ##### TODO
-- [ ] Utilizar crypto para password
-- [ ] Ordenar palavras pela última adicionada
+- [x] Utilizar crypto para password
+- [x] Ordenar palavras pela última adicionada
 
 ##### Rota de busca de imagem: 
 A api recebe um termo, busca no google images esse termo, retorna uma lista com 10 items
